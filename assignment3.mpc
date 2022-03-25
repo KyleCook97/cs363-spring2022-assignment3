@@ -1,7 +1,7 @@
-// $Id: assignment3.mpc 378 2010-02-07 22:09:38Z hillj $
+// $Id: assignment3.mpc  $
 
-project (assignmen3) {
-  exename = assignment2
+project (assignment3) {
+  exename = assignment3
   install = .
  
   specific (make, gnuace) {
@@ -10,13 +10,23 @@ project (assignmen3) {
 
   Source_Files {
     main.cpp
+    Command.cpp
+    Add_Command.cpp
+    Subtract_Command.cpp
+    Multiply_Command.cpp
+    Divide_Command.cpp
+    Modulus_Command.cpp
+    Number_Command.cpp
+    Operator_Command.cpp
+    Command_Factory.cpp
+    Stack_Command_Factory.cpp
   }
 
   Template_Files {
     Basic_Array.cpp
     Array.cpp
-    Fixed_Array.cpp
     Stack.cpp
     Queue.cpp
+    Array_Iterator.cpp
   }
 }
