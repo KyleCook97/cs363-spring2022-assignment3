@@ -31,8 +31,8 @@ LIBPREFIX     = lib
 LIBSUFFIX     = 
 GENFLAGS      = -O
 LDLIBS        = -ldl $(subst lib,-l,$(sort $(basename $(notdir $(wildcard /usr/lib/librt.so /lib/librt.so))))) -lpthread
-OBJS          = main$(OBJEXT) Command$(OBJEXT) Add_Command$(OBJEXT) Subtract_Command$(OBJEXT) Multiply_Command$(OBJEXT) Divide_Command$(OBJEXT) Modulus_Command$(OBJEXT) Number_Command$(OBJEXT) Operator_Command$(OBJEXT) Command_Factory$(OBJEXT) Stack_Command_Factory$(OBJEXT)
-SRC           = main.cpp Command.cpp Add_Command.cpp Subtract_Command.cpp Multiply_Command.cpp Divide_Command.cpp Modulus_Command.cpp Number_Command.cpp Operator_Command.cpp Command_Factory.cpp Stack_Command_Factory.cpp
+OBJS          = main$(OBJEXT) Calculator$(OBJEXT) Command$(OBJEXT) Add_Command$(OBJEXT) Subtract_Command$(OBJEXT) Multiply_Command$(OBJEXT) Divide_Command$(OBJEXT) Modulus_Command$(OBJEXT) Number_Command$(OBJEXT) Operator_Command$(OBJEXT) Command_Factory$(OBJEXT) Stack_Command_Factory$(OBJEXT)
+SRC           = main.cpp Calculator.cpp Command.cpp Add_Command.cpp Subtract_Command.cpp Multiply_Command.cpp Divide_Command.cpp Modulus_Command.cpp Number_Command.cpp Operator_Command.cpp Command_Factory.cpp Stack_Command_Factory.cpp
 LINK.cc       = $(LD) $(LDFLAGS)
 EXPORTFLAGS   = 
 DEPLIBS       = $(foreach lib, , $(foreach libpath, ., $(wildcard $(libpath)/lib$(lib).a)))
@@ -52,6 +52,9 @@ generated: $(GENERATED_DIRTY)
 
 main$(OBJEXT): main.cpp
 	$(COMPILE.cc) $(EXPORTFLAGS) $(OUTPUT_OPTION) main.cpp
+
+Calculator$(OBJEXT): Calculator.cpp
+	$(COMPILE.cc) $(EXPORTFLAGS) $(OUTPUT_OPTION) Calculator.cpp
 
 Command$(OBJEXT): Command.cpp
 	$(COMPILE.cc) $(EXPORTFLAGS) $(OUTPUT_OPTION) Command.cpp

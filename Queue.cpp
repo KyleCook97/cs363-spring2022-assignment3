@@ -56,17 +56,13 @@ void Queue <T>::enqueue (T element)
 
     //RESPONSE The size of the queue no longer increases if its size is <= the size and
 	// now only when it is <.
-	std::cout<<"checking queue size"<<std::endl;
+
 	//if there is not enough space we resize the array to make more room
 	if (this->size_ < size_)
     {
-		std::cout<<"resizing queue"<<std::endl;
 		arr_.resize(this->size_ + inc_amt_);
-		std::cout<<"queue resized"<<std::endl;
 	}
-	std::cout<<"adding element to queue"<<std::endl;
 	arr_.set(this->size_, element);
-	std::cout<<"increasing size of the queue"<<std::endl;
 	this->size_++;
 }
 

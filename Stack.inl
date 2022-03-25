@@ -27,7 +27,8 @@ T Stack <T>::top (void) const
 {
     std::cout<<"Check empty"<<std::endl;
     is_stack_empty();
-    return arr_[size_ -1];
+    std::cout<<"Is not empty"<<std::endl;
+    return arr_[size_];
 }
 
 //

@@ -9,7 +9,8 @@
 #include "Divide_Command.h"
 #include "Modulus_Command.h"
 
-class Command_Factory {
+class Command_Factory 
+{
 	public:
         //default constructor
 		Command_Factory();  

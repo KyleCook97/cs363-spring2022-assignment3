@@ -10,6 +10,7 @@ project (assignment3) {
 
   Source_Files {
     main.cpp
+    Calculator.cpp
     Command.cpp
     Add_Command.cpp
     Subtract_Command.cpp

@@ -137,14 +137,7 @@ const T & Array <T>::operator [] (size_t index) const
         std::cout<<"Invalid index value"<<std::endl;
     }
 
-    //loop through array until you get to the index indicated
-    for(size_t i = 0; i < index; i++) 
-    {
-        if(data_[i] == index) 
-        {
-            std::cout<<this->data_[i]<<std::endl;
-        }
-    } 
+    return data_[index];
 
 }
 
