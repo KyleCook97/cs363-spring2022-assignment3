@@ -120,14 +120,15 @@ void Calculator::convert_to_postfix(const std::string & infix, Command_Factory &
         }
 
         //if there are parenthesis OR (if the concrete value is an operator AND (the stack is empty OR the operator is a greater precedence than the top of the stack)))
-		if (!ops_to_pop.is_empty() || (cmd->get_concrete_value() > 0 && (temp_operators.is_empty() || (cmd->get_concrete_value() > temp_operators.top()->get_concrete_value())))) {
+		if (!ops_to_pop.is_empty() || (cmd->get_concrete_value() > 0 && (temp_operators.is_empty() || (cmd->get_concrete_value() > temp_operators.top()->get_concrete_value())))) 
+        {
 			// if there are any parenthesis, update the amount of operators to pop.
-			if (!ops_to_pop.is_empty()) {
+			if (!ops_to_pop.is_empty()) 
+            {
 				int inc_val = ops_to_pop.top() + 1;
 				ops_to_pop.pop();
 				ops_to_pop.push(inc_val);
 			}
-
 			temp_operators.push(cmd);
 		}
         else
@@ -143,9 +144,9 @@ void Calculator::convert_to_postfix(const std::string & infix, Command_Factory &
 				ops_to_pop.pop();
 				ops_to_pop.push(dec_value);
             }   
-        
         }
     }
+
     //empty operators leftover from the stack
     while (!temp_operators.is_empty())
     {

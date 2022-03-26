@@ -58,12 +58,12 @@ void Queue <T>::enqueue (T element)
 	// now only when it is <.
 
 	//if there is not enough space we resize the array to make more room
-	if (this->size_ < size_)
+	if (arr_.size() < size_)
     {
-		arr_.resize(this->size_ + inc_amt_);
+		arr_.resize(size_ + inc_amt_);
 	}
-	arr_.set(this->size_, element);
-	this->size_++;
+	arr_.set(size_, element);
+	size_++;
 }
 
 //
@@ -86,7 +86,7 @@ T Queue <T>::dequeue(void)
 	}
 	else
     {
-		front_of_queue_ = (front_of_queue_ + 1) % size();
+		front_of_queue_++;
 		size_--;
 		
 	}

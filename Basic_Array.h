@@ -161,6 +161,41 @@ class Basic_Array
         void fill (T ch);
     
     private:
+        /**
+         * @overload
+         *
+         * Get the index of the first occurring char.
+         *
+         * @param[in]       ch                   Character to search for
+         * @param[in]       start                Index to begin search
+         * @return          Index value of first occurrence
+         * @retval          -1                   Character not found
+         */
+        int get_index_from_char(T ch, size_t start) const;
+
+        /*
+        * Raises an exception if the input value is out of range.
+        * @param[in]       index                 Zero-based location
+        * @exception       std::out_of_range     Invalid index value
+        */
+        void check_out_of_range(size_t index) const;
+
+        /*
+        * Returns character from specified index.
+        * Raises an exception if the input value is out of range.
+        * @param[in]       index                 Zero-based location
+        * @return          Character at \index
+        * @exception       std::out_of_range     Invalid index value
+        */
+        T & get_char_from_index(size_t index) const;
+
+
+        /**
+         * Resets the values of the array without having to actual remove it the Array object
+         * 
+         */
+        void delete_data();
+
         /// Pointer to the actual data.
         T* data_;
 

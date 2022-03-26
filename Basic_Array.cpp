@@ -69,7 +69,7 @@ Basic_Array<T>::Basic_Array(const Basic_Array & array)
 template <typename T>
 Basic_Array<T>::~Basic_Array(void)
 {
-    delete[] data_;
+    delete_data();
 }
 
 //
@@ -78,23 +78,16 @@ Basic_Array<T>::~Basic_Array(void)
 template <typename T>
 const Basic_Array <T> & Basic_Array <T>::operator = (const Basic_Array & rhs)
 {
-    //check to self assignment
-    if(this != &rhs)
+    if (this != &rhs)
     {
-        return *this;
-    }
+        delete_data();
+        size_ = rhs.size_;
+        data_ = new T[size_];
 
-    if(this->size_ < rhs.size())
-    {
-        delete [] this->data_;
-        this->data_ = new T[rhs.size()];
-    }
-
-    this->size_ = rhs.size();
-
-    for(size_t i = 0; i < this->size_; i++)
-    {
-       this->data_[i] = rhs.data_[i];
+        for (size_t i = 0; i < size_; i++)
+        {
+            data_[i] = rhs[i];
+        }
     }
 }
 
@@ -104,21 +97,7 @@ const Basic_Array <T> & Basic_Array <T>::operator = (const Basic_Array & rhs)
 template <typename T>
 T & Basic_Array <T>::operator [] (size_t index)
 {
-    //check to see if the index given is out of the range of the array
-    //if the index is out of range throw an exception 
-    try
-    {
-        if(index < 0 || index > size_)
-        {
-            throw "Invalid index";
-        }
-    }
-    catch(const std::out_of_range& oor)
-    {
-        std::cout<<"Invalid index value"<<std::endl;
-    }
-
-    return data_[index];
+    return get_char_from_index(index);
 }
 
 //
@@ -127,31 +106,8 @@ T & Basic_Array <T>::operator [] (size_t index)
 template <typename T>
 const T & Basic_Array <T>::operator [] (size_t index) const
 {
-    //check to see if the index given is out of the range of the array
-    //if the index is out of range throw an exception 
-    try
-    {
-        if(index < 0 || index > size_)
-        {
-            throw "Invalid index";
-        }
-    }
-    catch(const std::out_of_range& oor)
-    {
-        std::cout<<"Invalid index value"<<std::endl;
-    }
-
-    //loop through array until you get to the index indicated
-    for(size_t i = 0; i < index; i++) 
-    {
-        if(data_[i] == index) 
-        {
-            std::cout<<this->data_[i]<<std::endl;
-        }
-    } 
-
+    return get_char_from_index(index);
 }
-
 
 //
 // get
@@ -159,19 +115,7 @@ const T & Basic_Array <T>::operator [] (size_t index) const
 template <typename T>
 T Basic_Array <T>::get (size_t index) const
 {
-    try
-    {
-        if(index < 0 || index > size_)
-        {
-            throw "Invalid index";
-        }
-    }
-    catch(const std::out_of_range& oor)
-    {
-        std::cout<<"Invalid index value"<<std::endl;
-    }
-
-    return data_[index];
+    return get_char_from_index(index);
 }
 
 //
@@ -180,37 +124,17 @@ T Basic_Array <T>::get (size_t index) const
 template <typename T>
 void Basic_Array <T>::set (size_t index, T value)
 {
-    try
-    {
-        if(index < 0 || index > size_)
-        {
-            throw "Invalid index";
-        }
-    }
-    catch(const std::out_of_range& oor)
-    {
-        std::cout<<"Invalid index value"<<std::endl;
-    }
-
-    this->data_[index] = value;
+    check_out_of_range(index);
+    data_[index] = value;
 }
 
 //
 // find (char)
 //
 template  <typename T>
-int Basic_Array <T>::find (T value) const
+int Basic_Array <T>::find (T val) const
 {
-    for(size_t i = 0; i < this->size_; i++)
-    {
-        if (data_[i] == value)
-        {
-            return i;
-        }
-    }
-
-    //not found
-    return -1;
+    return get_index_from_char(val, 0);
 }
 
 //
@@ -219,29 +143,8 @@ int Basic_Array <T>::find (T value) const
 template <typename T>
 int Basic_Array <T>::find (T val, size_t start) const
 {
-    try
-    {
-        if(start < 0 || start > size_)
-        {
-            throw "Invalid index";
-        }
-    }
-    catch(const std::out_of_range& oor)
-    {
-        std::cout<<"Invalid index value"<<std::endl;
-    }
-
-    for(size_t i = start; i < this->size_; i++)
-    {
-        if (data_[i] == val)
-        {
-            return i;
-        }
-    }
-
-    //not found
-    return -1;
-
+    check_out_of_range(start);
+    return get_index_from_char(val, start);
 }
 
 //
@@ -257,15 +160,15 @@ bool Basic_Array <T>::operator == (const Basic_Array & rhs) const
     }
 
     //array sizes do not match
-    if (this->size_ != rhs.size())
+    if (size_ != rhs.size())
     {   
         return false;
     }
 
     //values in array do not match
-    for(size_t i = 0; i < this->size_; i++)
+    for(size_t i = 0; i < size_; i++)
     {
-        if (this->data_[i] != rhs[i])
+        if (data_[i] != rhs[i])
         {
             return false;
         }
@@ -279,27 +182,7 @@ bool Basic_Array <T>::operator == (const Basic_Array & rhs) const
 template <typename T>
 bool Basic_Array <T>::operator != (const Basic_Array & rhs) const
 {
-    //self comparison
-    if (!(this == &rhs))
-    {
-        return true;
-    }
-
-    //array sizes do not match
-    if (!(this->size_ != rhs.size()))
-    {   
-        return false;
-    }
-
-    //values in array do not match
-    for(size_t i = 0; i < this->size_; i++)
-    {
-        if (!(this->data_[i] != rhs[i]))
-        {
-            return false;
-        }
-    }
-    return true;   
+    return !(*this == rhs);
 }
 
 //
@@ -308,8 +191,45 @@ bool Basic_Array <T>::operator != (const Basic_Array & rhs) const
 template <typename T>
 void Basic_Array <T>::fill (T value)
 {
-    for(size_t i = 0; i < this->size_; i++)
+    for(size_t i = 0; i < size_; i++)
     {
-        this->data_[i] = value;
+        data_[i] = value;
     }
+}
+
+template <typename T>
+void Basic_Array <T>::check_out_of_range (size_t index) const
+{
+    if (index >= size_ || index < 0)
+    {
+        throw std::out_of_range("Array Index is out of range.");
+    }
+}
+
+template <typename T>
+T & Basic_Array <T>::get_char_from_index (size_t index) const
+{
+    check_out_of_range(index);
+    return data_[index];
+}
+
+template <typename T>
+int Basic_Array <T>::get_index_from_char (T ch, size_t start) const
+{
+    for (size_t i = start; i < size_; i++)
+    {
+        if (data_[i] == ch)
+        {
+            return i;
+        }
+    }
+    //if no char is found
+    return -1; 
+}
+
+template <typename T>
+void Basic_Array <T>::delete_data()
+{
+    delete[] data_;
+    data_ = nullptr;
 }

@@ -30,7 +30,7 @@ Stack <T>::Stack (const Stack & stack)
 // calling the copy constructor using a temporary object.
 
 //RESPONSE Removed explicit calling of a constructor.
-    :size_(-1)
+    :size_(0)
 {
     *this = stack;
 }
@@ -51,13 +51,13 @@ template <typename T>
 void Stack <T>::push (T element)
 {
     //if there is not enough space we resize the array to make more room
-    if (this->size_ <= size_)
+    if (arr_.size() <= size_)
     {
-        arr_.resize(this->size_ + inc_amt_);
+        arr_.resize(size_ + inc_amt_);
     }
 
-    arr_.set(this->size_, element);
-    this->size_++;
+    arr_[size_] = element;
+    size_++;
 }
 
 //

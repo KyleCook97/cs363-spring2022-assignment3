@@ -122,7 +122,7 @@ private:
   //array on the stack
   Array<T> arr_;
 
-  //size of stack
+  //max size of stack
   size_t size_;
 
   //used in resizing the array

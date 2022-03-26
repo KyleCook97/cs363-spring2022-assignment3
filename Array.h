@@ -61,7 +61,7 @@ public:
    *
    * @param[in]     arr         The source array.
    */
-  Array (const Array & arr);
+  Array (const Array <T> & arr);
 
   /// Destructor.
   ~Array (void);
@@ -72,7 +72,7 @@ public:
    * @param[in]       rhs      Right-hand side of equal sign
    * @return          Reference to self
    */
-  const Array & operator = (const Array & rhs);
+  const Array <T> & operator = (const Array <T> & rhs);
 
   /**
    * Retrieve the current size of the array.
@@ -87,24 +87,6 @@ public:
    * @return          The maximum size
    */
   size_t max_size (void) const;
-
-  /**
-   * Get the character at the specified index. If the index is not
-   * within the range of the array, then std::out_of_range exception
-   * is thrown.
-   *
-   * @param[in]       index               Zero-based location
-   * @exception       std::out_of_range   Invalid \a index value
-   */
-  T & operator [] (size_t index);
-
-  /**
-   * @overload
-   *
-   * The returned character is not modifiable.
-   */
-  const T & operator [] (size_t index) const;
-
   
   /**
    * Set a new size for the array. If \a new_size is less than the current
@@ -120,27 +102,19 @@ public:
    */
   void resize (size_t new_size);
 
-  
-
-  /**
-   * Test the array for equality.
-   *
-   * @param[in]       rhs                  Right hand side of equal to sign
-   * @retval          true                 Left side is equal to right side
-   * @retval          false                Left side is not equal to right side
-   */
-  bool operator == (const Array & rhs) const;
-
-  /**
-   * Test the array for inequality.
-   *
-   * @param[in]       rhs                  Right-hand size of not equal to sign
-   * @retval          true                 Left side is not equal to right side
-   * @retval          false                Left size is equal to right side
-   */
-  bool operator != (const Array & rhs) const;
-
 private:
+
+  /**
+   * Copies over the data from the current array
+   * deletes the current array
+   * then allocates memory
+   * 
+   * @param[in] length Size of the array
+   * @exception std::out_of_range Invalid index value
+   * 
+   */
+  void copy_data(size_t length);
+
   /// Pointer to the actual data.
   T * data_;
 
