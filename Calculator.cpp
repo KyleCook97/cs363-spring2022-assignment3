@@ -90,6 +90,13 @@ void Calculator::convert_to_postfix(const std::string & infix, Command_Factory &
         }
         else if (cur_val == "(")
         {
+            // COMMENT Although you are pushing "0" to represent a parenthesis,
+            // you are basically saying a parenthesis is a command. Moreover, what
+            // happens if you have another "special" token that needs to go onto the
+            // stack. You cannot use a 0 for that one.  Create a design that does
+            // not require having parenthesis as as command object since parenthesis are
+            // not executed.
+            
             //add 0 to the queue to show new parenthesis
 			ops_to_pop.push(0);
 			continue;
