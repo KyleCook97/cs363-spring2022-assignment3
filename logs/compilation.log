@@ -1,4 +1,21 @@
-Generating 'make' output using /home/hilljh/cs363-sandbox/assignment3/kwcook/cs363-spring2022-assignment3/assignment3.mpc
-assignment3.mpc: line 3:
-ERROR: No workspace was defined
-ERROR: Unable to process: assignment3.mpc
+Generating 'make' output using default input
+Generation Time: 1s
+make[1]: Entering directory `/home/hilljh/cs363-sandbox/assignment3/kwcook/cs363-spring2022-assignment3'
+rm -rf main.o Calculator.o Command.o Add_Command.o Subtract_Command.o Multiply_Command.o Divide_Command.o Modulus_Command.o Number_Command.o Operator_Command.o Command_Factory.o Stack_Command_Factory.o
+rm -rf ./assignment3
+make[1]: Leaving directory `/home/hilljh/cs363-sandbox/assignment3/kwcook/cs363-spring2022-assignment3'
+make[1]: Entering directory `/home/hilljh/cs363-sandbox/assignment3/kwcook/cs363-spring2022-assignment3'
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "main.o" main.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Calculator.o" Calculator.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Command.o" Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Add_Command.o" Add_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Subtract_Command.o" Subtract_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Multiply_Command.o" Multiply_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Divide_Command.o" Divide_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Modulus_Command.o" Modulus_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Number_Command.o" Number_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Operator_Command.o" Operator_Command.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Command_Factory.o" Command_Factory.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -c  -o "Stack_Command_Factory.o" Stack_Command_Factory.cpp
+g++  -fPIC -O -std=c++11 -D_REENTRANT -L"." main.o Calculator.o Command.o Add_Command.o Subtract_Command.o Multiply_Command.o Divide_Command.o Modulus_Command.o Number_Command.o Operator_Command.o Command_Factory.o Stack_Command_Factory.o -ldl -lrt -lpthread -o "assignment3"
+make[1]: Leaving directory `/home/hilljh/cs363-sandbox/assignment3/kwcook/cs363-spring2022-assignment3'
